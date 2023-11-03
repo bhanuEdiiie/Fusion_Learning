@@ -5,6 +5,9 @@ using Fusion;
 public class NetworkPlayer : NetworkBehaviour , IPlayerLeft
 {
     public static NetworkPlayer Local { get; set; }
+
+
+    public Transform model;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +19,7 @@ public class NetworkPlayer : NetworkBehaviour , IPlayerLeft
         if(Object.HasInputAuthority)
         {
             Local = this;
+            Utils.SetLayerOfChildren(model, LayerMask.NameToLayer("Playerskin"));
             Debug.Log("spawned local palyer");
         }
         else

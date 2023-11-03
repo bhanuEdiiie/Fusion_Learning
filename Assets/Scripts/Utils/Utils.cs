@@ -8,4 +8,12 @@ public static class Utils
     {
         return new Vector3(Random.Range(-20, 20), 1, Random.Range(-20, 20));
     }
+
+    public static void SetLayerOfChildren(Transform model,int layerNo)
+    {
+        foreach(Transform child in model.GetComponentInChildren<Transform>(true))
+        {
+            child.gameObject.layer = layerNo;
+        }
+    }
 }
