@@ -20,7 +20,6 @@ public class NetworkPlayer : NetworkBehaviour , IPlayerLeft
         {
             Local = this;
             Utils.SetLayerOfChildren(model, LayerMask.NameToLayer("Playerskin"));
-            Debug.Log("spawned local palyer");
         }
         else
         {

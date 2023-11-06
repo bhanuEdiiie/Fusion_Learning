@@ -6,11 +6,12 @@ public class CharacterInputHandler : MonoBehaviour
 {
     Vector2 moveInputvector = Vector2.zero;
     Vector2 viewInputVector = Vector2.zero;
-    CharacterMovementHandler CharacterMovementHandler;
     bool isJumpButtonPressed;
+
+    localCameraHandler localCameraHandler;
     private void Awake()
     {
-        CharacterMovementHandler = GetComponent<CharacterMovementHandler>();
+        localCameraHandler = GetComponentInChildren<localCameraHandler>();
     }
     // Start is called before the first frame update
     void Start()
@@ -24,7 +25,9 @@ public class CharacterInputHandler : MonoBehaviour
     {
         viewInputVector.x = Input.GetAxis("Mouse X");
         viewInputVector.y = Input.GetAxis("Mouse Y")  * -1 ;
-        CharacterMovementHandler.SetViewInputVector(viewInputVector);
+
+        localCameraHandler.SetViewInputVector(viewInputVector);
+
         moveInputvector.x = Input.GetAxis("Horizontal");
         moveInputvector.y = Input.GetAxis("Vertical");
         if (Input.GetKeyDown(KeyCode.Space))
@@ -34,11 +37,16 @@ public class CharacterInputHandler : MonoBehaviour
     public NetworkInputData GetNetworkInput()
     {
         NetworkInputData networkInputData = new NetworkInputData();
-        networkInputData.rotationInput = viewInputVector.x;
+
+        //Movement Data
         networkInputData.movementInput = moveInputvector;
 
+        networkInputData.aimForwardVector = localCameraHandler.transform.forward;
+
+        //Jump Data
         networkInputData.isJumped = isJumpButtonPressed;
         isJumpButtonPressed = false;
+
         return networkInputData;
     }
 }

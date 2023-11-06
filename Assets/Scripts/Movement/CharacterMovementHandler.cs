@@ -7,9 +7,7 @@ public class CharacterMovementHandler : NetworkBehaviour
 {
     Camera localCamera;
     NetworkCharacterControllerPrototypeCustom networkCharacterControllerPrototypeCustom;
-    Vector2 viewInput;
-
-    float cameraRotationX = 0;
+ 
 
     private void Awake()
     {
@@ -22,32 +20,30 @@ public class CharacterMovementHandler : NetworkBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        cameraRotationX += viewInput.y * Time.deltaTime * networkCharacterControllerPrototypeCustom.viewUpDown;
-        cameraRotationX = Mathf.Clamp(cameraRotationX, -90, 90);
-        localCamera.transform.localRotation = Quaternion.Euler(cameraRotationX, 0, 0);
-    }
+
     public override void FixedUpdateNetwork()
     {
-        
+        //Get input from network 
         if (GetInput(out NetworkInputData networkInputData))
         {
+
+            transform.forward = networkInputData.aimForwardVector;
+            Quaternion rotation = transform.rotation;
+            rotation.eulerAngles = new Vector3(0, rotation.eulerAngles.y, rotation.eulerAngles.z);
+            this.transform.rotation = rotation;
+
+            //Move 
             Vector3 moveDirection = (transform.forward * networkInputData.movementInput.y + transform.right * networkInputData.movementInput.x);
             moveDirection.Normalize();
             networkCharacterControllerPrototypeCustom.Move(moveDirection);
+
+            //Jump
             if (networkInputData.isJumped)
             {
                 networkCharacterControllerPrototypeCustom.Jump();
                 Debug.Log("Jump hua");
             }
-            networkCharacterControllerPrototypeCustom.Rotate(networkInputData.rotationInput);
         }
     }
 
-    public void SetViewInputVector(Vector2 viewInputVector) 
-    {
-        this.viewInput = viewInputVector;
-    }
 }
