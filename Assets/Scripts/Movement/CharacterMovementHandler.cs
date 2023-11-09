@@ -7,6 +7,11 @@ public class CharacterMovementHandler : NetworkBehaviour
 {
     Camera localCamera;
     NetworkCharacterControllerPrototypeCustom networkCharacterControllerPrototypeCustom;
+    [SerializeField]
+    GameObject bulletPrefab;
+    [SerializeField]
+    GameObject spawnPoint;
+    
  
 
     private void Awake()
@@ -42,6 +47,11 @@ public class CharacterMovementHandler : NetworkBehaviour
             {
                 networkCharacterControllerPrototypeCustom.Jump();
                 Debug.Log("Jump hua");
+            }
+            if(networkInputData.Shoot)
+            {
+                Runner.Spawn(bulletPrefab, spawnPoint.transform.position, transform.rotation);
+                Debug.Log(networkInputData.aimForwardVector);
             }
         }
     }

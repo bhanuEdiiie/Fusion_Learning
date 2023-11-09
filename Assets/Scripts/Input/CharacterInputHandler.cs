@@ -7,6 +7,7 @@ public class CharacterInputHandler : MonoBehaviour
     Vector2 moveInputvector = Vector2.zero;
     Vector2 viewInputVector = Vector2.zero;
     bool isJumpButtonPressed;
+    bool isMouseButtonPressed;
 
     localCameraHandler localCameraHandler;
     private void Awake()
@@ -32,6 +33,9 @@ public class CharacterInputHandler : MonoBehaviour
         moveInputvector.y = Input.GetAxis("Vertical");
         if (Input.GetKeyDown(KeyCode.Space))
             isJumpButtonPressed = true;
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+            isMouseButtonPressed = true;
     }
 
     public NetworkInputData GetNetworkInput()
@@ -45,7 +49,13 @@ public class CharacterInputHandler : MonoBehaviour
 
         //Jump Data
         networkInputData.isJumped = isJumpButtonPressed;
+
+        //Shoot Data 
+        networkInputData.Shoot = isMouseButtonPressed;
+
+        //Reset Data 
         isJumpButtonPressed = false;
+        isMouseButtonPressed = false;
 
         return networkInputData;
     }

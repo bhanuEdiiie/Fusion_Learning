@@ -56,6 +56,5 @@ public class localCameraHandler : MonoBehaviour
     public void SetViewInputVector(Vector2 viewInput)
     {
         this.viewInput = viewInput;
-        Debug.Log(this.viewInput);
     }
 }
