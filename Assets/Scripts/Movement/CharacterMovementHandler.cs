@@ -31,7 +31,6 @@ public class CharacterMovementHandler : NetworkBehaviour
         //Get input from network 
         if (GetInput(out NetworkInputData networkInputData))
         {
-
             transform.forward = networkInputData.aimForwardVector;
             Quaternion rotation = transform.rotation;
             rotation.eulerAngles = new Vector3(0, rotation.eulerAngles.y, rotation.eulerAngles.z);
@@ -48,11 +47,7 @@ public class CharacterMovementHandler : NetworkBehaviour
                 networkCharacterControllerPrototypeCustom.Jump();
                 Debug.Log("Jump hua");
             }
-            if(networkInputData.Shoot)
-            {
-                Runner.Spawn(bulletPrefab, spawnPoint.transform.position, transform.rotation);
-                Debug.Log(networkInputData.aimForwardVector);
-            }
+            
         }
     }
 
