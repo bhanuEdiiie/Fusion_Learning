@@ -573,8 +573,8 @@ MonoBehaviour:
   _interpolationDataSource: 0
   _IsDead:
     _value: 0
-  startingHp: 15
-  uiOnHitColor: {r: 1, g: 0, b: 0, a: 0.78431374}
+  startingHp: 200
+  uiOnHitColor: {r: 1, g: 0, b: 0, a: 0.84313726}
   defaultBodyColour: {r: 0, g: 0, b: 0, a: 0}
   uiOnHitImage: {fileID: 8780822634040690733}
   bodyMeshRender: {fileID: 2289481453329860829}
