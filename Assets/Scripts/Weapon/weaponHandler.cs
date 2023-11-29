@@ -22,6 +22,7 @@ public class weaponHandler : NetworkBehaviour
 
     public override void FixedUpdateNetwork()
     {
+        //Debug.Log(GetInput(out NetworkInputData networkInputData));
         if(GetInput(out NetworkInputData networkInputData))
         {
             if(networkInputData.isFired)
@@ -45,7 +46,11 @@ public class weaponHandler : NetworkBehaviour
 
         if(hitInfo.Hitbox !=null)
         {
+
             Debug.Log(Time.time + " " + hitInfo.Hitbox.transform.root.name);
+
+            if (Object.HasStateAuthority)
+                hitInfo.Hitbox.transform.root.GetComponent<HPHandler>().OnTakeDamage();
             isHitOtherPlayer = true;
         }
         else if(hitInfo.Collider != null)
@@ -83,11 +88,37 @@ public class weaponHandler : NetworkBehaviour
 
     static void OnFireChanged(Changed<weaponHandler> changed)
     {
-        
+        bool firingCurrent = changed.Behaviour.isFiring;
+
+        changed.LoadOld();
+
+        bool firingOld = changed.Behaviour.isFiring;
+
+        if (firingCurrent && !firingOld)
+        {
+            changed.Behaviour.OnFireRemote(true);
+        }
+        else
+        {
+            changed.Behaviour.OnFireRemote(false);
+        }
+
     }
      
-    void OnFireRemote()
+    void OnFireRemote(bool toPlay)
     {
-
+        if(!Object.HasInputAuthority)
+        {
+            if (toPlay)
+            {
+                fireAnimator.enabled = true;
+                fireAnimator.Play("FireAnim");
+            }
+            else
+            {
+                fireAnimator.enabled = false;
+                fireAnimator.Rebind();
+            }
+        }
     }
 }

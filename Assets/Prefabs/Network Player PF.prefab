@@ -368,6 +368,7 @@ GameObject:
   - component: {fileID: 8882912207603440650}
   - component: {fileID: 2264988413258649781}
   - component: {fileID: 7607434089132410525}
+  - component: {fileID: 1421684788018167171}
   m_Layer: 0
   m_Name: Network Player PF
   m_TagString: Player
@@ -438,6 +439,7 @@ MonoBehaviour:
   - {fileID: 8882912207603440650}
   - {fileID: 2264988413258649781}
   - {fileID: 7607434089132410525}
+  - {fileID: 1421684788018167171}
   SimulationBehaviours: []
 --- !u!114 &9008070946477417267
 MonoBehaviour:
@@ -556,6 +558,26 @@ MonoBehaviour:
   Offset: {x: 0, y: 0, z: 0}
   GizmosColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   Hitboxes: []
+--- !u!114 &1421684788018167171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2289481453572709608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c9801cec3db9ed4fac626bed7cb976f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  _IsDead:
+    _value: 0
+  startingHp: 15
+  uiOnHitColor: {r: 1, g: 0, b: 0, a: 0.78431374}
+  defaultBodyColour: {r: 0, g: 0, b: 0, a: 0}
+  uiOnHitImage: {fileID: 8780822634040690733}
+  bodyMeshRender: {fileID: 2289481453329860829}
 --- !u!1 &2289481453573913827
 GameObject:
   m_ObjectHideFlags: 0
@@ -933,3 +955,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6031451163028310859, guid: bcee68bff8305ef41872ec87e74c29bf, type: 3}
   m_PrefabInstance: {fileID: 5952874604968068593}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8780822634040690733 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3118571494832360924, guid: bcee68bff8305ef41872ec87e74c29bf, type: 3}
+  m_PrefabInstance: {fileID: 5952874604968068593}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
