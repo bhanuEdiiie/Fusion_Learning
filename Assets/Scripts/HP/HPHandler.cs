@@ -23,20 +23,12 @@ public class HPHandler : NetworkBehaviour
     public MeshRenderer bodyMeshRender;
     
     // Start is called before the first frame update
-    public override void Spawned()
+    void Start()
     {
         HP = startingHp;
         IsDead = false;
         defaultBodyColour = bodyMeshRender.material.color;
         isIntialized = true;
-    }
-
-
-
-    [ContextMenu("Set Health")]
-    private void SetHealth()
-    {
-        HP = 250;
     }
 
 
