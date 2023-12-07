@@ -11,9 +11,8 @@ public class CharacterMovementHandler : NetworkBehaviour
     GameObject bulletPrefab;
     [SerializeField]
     GameObject spawnPoint;
-    
- 
 
+  
     private void Awake()
     {
         networkCharacterControllerPrototypeCustom = GetComponent<NetworkCharacterControllerPrototypeCustom>();
@@ -31,6 +30,7 @@ public class CharacterMovementHandler : NetworkBehaviour
         //Get input from network 
         if (GetInput(out NetworkInputData networkInputData))
         {
+            Debug.Log("......1");
             transform.forward = networkInputData.aimForwardVector;
             Quaternion rotation = transform.rotation;
             rotation.eulerAngles = new Vector3(0, rotation.eulerAngles.y, rotation.eulerAngles.z);
@@ -45,9 +45,10 @@ public class CharacterMovementHandler : NetworkBehaviour
             if (networkInputData.isJumped)
             {
                 networkCharacterControllerPrototypeCustom.Jump();
-                Debug.Log("Jump hua");
             }
-            
+          
+
+
         }
     }
 

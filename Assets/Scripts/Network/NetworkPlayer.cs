@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
+using UnityEngine.UI;
+
 public class NetworkPlayer : NetworkBehaviour , IPlayerLeft
 {
     public static NetworkPlayer Local { get; set; }
-
+    public Slider healthBar;
 
     public Transform model;
     // Start is called before the first frame update
@@ -27,6 +29,7 @@ public class NetworkPlayer : NetworkBehaviour , IPlayerLeft
             localCamera.enabled = false;
             AudioListener audioListener = GetComponentInChildren<AudioListener>();
             audioListener.enabled = false;
+            healthBar.gameObject.SetActive(false);
             Debug.Log("spawned remote player");
         }
     }

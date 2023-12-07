@@ -16,7 +16,6 @@ public class weaponHandler : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(Time.time);
       
     }
 
@@ -29,7 +28,6 @@ public class weaponHandler : NetworkBehaviour
             {
                 //Debug.Log(networkInputData.isFired);
                 Fire(networkInputData.aimForwardVector);
-                Debug.Log("Idhar aaya 1 " + this.name);
             }
         }
     }
@@ -50,7 +48,9 @@ public class weaponHandler : NetworkBehaviour
             Debug.Log(Time.time + " " + hitInfo.Hitbox.transform.root.name);
 
             if (Object.HasStateAuthority)
+            {
                 hitInfo.Hitbox.transform.root.GetComponent<HPHandler>().OnTakeDamage();
+            }
             isHitOtherPlayer = true;
         }
         else if(hitInfo.Collider != null)
@@ -61,12 +61,10 @@ public class weaponHandler : NetworkBehaviour
         // Debug for hit 
         if (isHitOtherPlayer)
         {
-            Debug.Log("Working 1");
             Debug.DrawRay(aimPoint.position, aimForwardVector * hitDistance, Color.red, 1);
         }
         else
         {
-            Debug.Log("Working 2");
             Debug.DrawRay(aimPoint.position, aimForwardVector * hitDistance, Color.green, 1);
         }
 
