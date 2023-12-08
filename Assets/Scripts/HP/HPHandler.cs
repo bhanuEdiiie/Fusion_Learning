@@ -125,26 +125,27 @@ public class HPHandler : NetworkBehaviour
         {
             Debug.Log("Workedd..");
             transform.root.position = Utils.GetRandomSpawnPoint();
+            transform.root.GetComponent<CharacterController>().enabled = false;
             
         }
         if (Object.HasInputAuthority)
         {
             uiOnHitImage.color = uiOnDeadColor;
-            StartCoroutine(nameof(Reseting));
         }
-       
+        StartCoroutine(nameof(Reseting));
+
     }
     IEnumerator Reseting()
     {
         
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(3);
 
         if (Object.HasStateAuthority)
         {
             Debug.Log("............?");
             IsDead = false;
             HP = startingHp;
-            transform.root.GetComponent<CharacterController>().enabled = false;
+            transform.root.GetComponent<CharacterController>().enabled = true;
         }
         uiOnHitImage.color = new Color(0, 0, 0, 0);
         healthBar.value = HP;
