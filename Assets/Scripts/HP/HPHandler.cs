@@ -110,14 +110,16 @@ public class HPHandler : NetworkBehaviour
         bool deadOld = changed.Behaviour.IsDead;
         if(deadNew && !deadOld)
         {
-            changed.Behaviour.VisualEffects();
             changed.Behaviour.Respawn();
         }
-    }
-
-    void VisualEffects()
-    {
-
+        changed.LoadNew();
+        if (changed.Behaviour.Object.HasStateAuthority)
+        {
+            Debug.Log("............?");
+            changed.Behaviour.IsDead = false;
+            changed.Behaviour.HP = changed.Behaviour.startingHp;
+            changed.Behaviour.transform.root.GetComponent<CharacterController>().enabled = true;
+        }
     }
     void Respawn()
     {
@@ -130,25 +132,19 @@ public class HPHandler : NetworkBehaviour
         }
         if (Object.HasInputAuthority)
         {
+            Debug.Log(".........1");
             uiOnHitImage.color = uiOnDeadColor;
+            StartCoroutine(nameof(Reseting));
         }
-        StartCoroutine(nameof(Reseting));
 
     }
     IEnumerator Reseting()
     {
         
         yield return new WaitForSeconds(3);
-
-        if (Object.HasStateAuthority)
-        {
-            Debug.Log("............?");
-            IsDead = false;
-            HP = startingHp;
-            transform.root.GetComponent<CharacterController>().enabled = true;
-        }
         uiOnHitImage.color = new Color(0, 0, 0, 0);
-        healthBar.value = HP;
+        healthBar.value = startingHp;
+        
     }
   
     private void OnTriggerEnter(Collider other)
